@@ -118,7 +118,7 @@ Beberapa perintah Linux yang digunakan untuk proses penyaringan antara lain :
      wc : digunakan untuk menghitung jumlah baris, kata dan karakter dari baris-baris masukan yang diberikan kepadanya.
      cut : digunakan untuk mengambil kolom tertentu dari baris-baris masukannya,
      uniq : digunakan untuk menghilangkan baris-baris berurutan yang mengalami duplikasi, biasanya digabungkan dalam pipeline dengan sort.
-     
+
 ## PERCOBAAN:
 
 1. Login sebagai user.
@@ -512,8 +512,8 @@ Perintah `$ cat myfile.txt – surat` untuk menampilkan isi dari dua file, yaitu
 
    Analisa :
    Perintah `$ cat > hello.txt` digunakan untuk membuat file baru dengan nama "hello.txt" dan memungkinkan pengguna untuk memasukkan beberapa baris teks, termasuk kata-kata seperti "dog", "cat", "duck", dan "chicken". Kemudian, perintah `$ cat hello.txt | sort | uniq` membaca isi dari "hello.txt", mengurutkannya secara alfabetis menggunakan perintah `sort`, dan kemudian menghilangkan baris-baris yang sama menggunakan perintah `uniq`, sehingga hanya menampilkan setiap kata sekali saja. Sementara itu, perintah `$ cat hello.txt | grep "dog" | grep -v "cat"` membaca isi dari "hello.txt", menyaring baris yang mengandung kata "dog" menggunakan `grep`, dan kemudian menghilangkan baris yang juga mengandung kata "cat" dengan menggunakan opsi `-v` di `grep`, sehingga hanya menampilkan baris yang mengandung kata "dog" namun tidak mengandung kata "cat".
- <br>
-   ## Kesimpulan
+   <br>
+   ## KESIMPULAN
 
    Redirection, Pipeline, dan Commands yang disebutkan di atas adalah komponen penting sistem operasi UNIX/Linux dan digunakan untuk mengatur aliran data, mengatur file, dan melakukan operasi teks.
 

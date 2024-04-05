@@ -125,7 +125,7 @@ Output
 
 ![App Screenshot](assets/img/output.png)
 
-Analisa : Program diatas merupakan salah satu contoh implementasi fungsi `fork()` dalam bahasa pemrogramman C dimana program tersebut mencetak PID, Child ID, dan PPID (Parent Process ID) pada main program dipanggil PID yang tertera 4992 dan parent ID 4978. Main program lalu menggunakan fungsi `fork()` lalu ditampilkan dengan keterangan parent process dan child process, dengan masing masing mempunyai PID dan PPID. Untuk parent process mempunyai PID = 4992 dan PPID = 4978 yang mana sama dengan main process, lalu untuk child process mempunyai PID = 4993 dan PPID = 4992 dengan PID yang jelas lebih besar dibandingkan parent process.
+Analisa : Program diatas merupakan salah satu contoh implementasi fungsi `fork()` dalam bahasa pemrogramman C dimana program tersebut mencetak PID, Child ID, dan PPID (Parent Process ID) pada main program dipanggil PID yang tertera 2939 dan parent ID 2797. Main program lalu menggunakan fungsi `fork()` lalu ditampilkan dengan keterangan parent process dan child process, dengan masing masing mempunyai PID dan PPID. Untuk parent process mempunyai PID = 2939 dan PPID = 2940 yang mana sama dengan main process, lalu untuk child process mempunyai PID = 2940 dan PPID = 1126 dengan PID yang jelas lebih besar dibandingkan parent process.
 
 ### 2. Deskripsikan dan visualisasikan pohon proses hasil eksekusi dari kode program `fork01.c`, `fork02.c`, `fork03.c`, `fork04.c`, `fork05.c`dan `fork06.c`.
 
@@ -144,17 +144,17 @@ Visualisasi:
 ```
 int main() {
   for(int i = 0;i < 3; i++){
-    PID : 3185, PPID : 2208, uid : 1000
+    PID : 3185, PPID : 36288, uid : 1000
               [Main Process]
                     |
                 sleep(3)
                     |
-    PID : 3185, PPID : 2208, uid : 1000
+    PID : 3185, PPID : 36288, uid : 1000
               [Main Process]
                     |
                 sleep(3)
                     |
-    PID : 3185, PPID : 2208, uid : 1000
+    PID : 3185, PPID : 36288, uid : 1000
               [Main Process]
                     |
                 sleep(3)
@@ -184,7 +184,7 @@ int main() {
                           /       \
                         /           \
   while(1){           /               \
-          PID: 3262, PPID: -       PID: 3263, PPID: 3262
+          PID: 36476, PPID: -       PID: 36477, PPID: 36476
           [Parent Process]          [Child Process]
                       \               /
                         \           /
@@ -220,7 +220,7 @@ int main() {
                           /       \
   x=5;                  /           \
   while(x<=5){        /               \
-          PID: 3262, PPID: -      PID: 3263, PPID: 3262
+          PID: 36325, PPID: -      PID: 36326, PPID: 36325
           [Parent Process]          [Child Process]
                       \               /
                         \           /
@@ -258,11 +258,11 @@ int main() {
                                  /     \
                                 /       \
                                /         \
-                    PID: 3408, PPID: -    \
+                    PID: 36382, PPID: -   \
                     [Parent Process]       \
                             |               \
                             |                \
-                            |        PID: 3409, PPID: 3408
+                            |        PID: 36383, PPID: 36382
                           wait         [Child Process]
                             \                /
                               \            /
@@ -296,11 +296,11 @@ int main() {
                                     +
                                   /   \
                                 /       \
-                PID : 3495 PPID : -       \
+                PID : 36394 PPID : -      \
                  [Parent Process]           \
                         |                     \
                         |                       \
-                        |               PID : 3496 PPID : 3495
+                        |               PID : 36395 PPID : 36394
                       wait                    execl(/bin/ls)
                         \                     [Child Process]
                           \                       /
@@ -335,10 +335,10 @@ int main() {
                                 +
                               /   \
                             /      \
-              PID: 3541, PPID: -    \
+              PID: 36440, PPID: -   \
               [Parent Process]       \
                       |               \
-                      |          PID: 3542, PPID: 3541
+                      |          PID: 36441, PPID: 36440
                     wait          [Child Process]
                       \               /
                         \           /

@@ -144,17 +144,17 @@ Visualisasi:
 ```
 int main() {
   for(int i = 0;i < 3; i++){
-    PID : 3185, PPID : 36288, uid : 1000
+    PID : 36288, PPID : 35057, uid : 1000
               [Main Process]
                     |
                 sleep(3)
                     |
-    PID : 3185, PPID : 36288, uid : 1000
+    PID : 36288, PPID : 35057, uid : 1000
               [Main Process]
                     |
                 sleep(3)
                     |
-    PID : 3185, PPID : 36288, uid : 1000
+    PID : 36288, PPID : 35057, uid : 1000
               [Main Process]
                     |
                 sleep(3)

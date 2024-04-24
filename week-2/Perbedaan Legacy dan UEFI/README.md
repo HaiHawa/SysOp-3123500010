@@ -29,20 +29,45 @@ BIOS merupakan singkatan dari Basic Input Output System. merupakan suatu softwar
 ## Perbedaan Legacy dan UEFI
 
 ![App Screenshot](assets/img/bios.png)
+![App Screenshot](assets/img/uefi%20dan%20legacy.png)
 
-**1. Definisi**
-Unified Extensible Firmware Interface (UEFI) adalah proses booting pada komputer modern dengan kemampuan lebih canggih dibanding sistem Legacy. UEFI menggunakan firmware URFI untuk menyimpan EFI Service Partitions saat proses booting berlangsung.
-Sementara, Legacy adalah proses booting komputer dengan firmware BIOS yang lebih lama dan tradisional.
+Proses booting pada UEFI (Unified Extensible Firmware Interface) berbeda dengan Legacy BIOS (Basic Input/Output System). Berikut adalah langkah-langkah umum dalam proses booting UEFI:
 
-**2. Antarmuka**
-UEFI mendukung penggunaan mouse bahkan touchscreen atau layar sentuh sedangkan Legacy hanya support keyboard saja.
+1. **Power On Self Test (POST)**: Proses booting dimulai dengan POST, di mana firmware UEFI melakukan pemeriksaan awal terhadap perangkat keras untuk memastikan semuanya berfungsi dengan baik.
 
-**3. Kapasitas**
-UEFI mendukung kapasitas hardisk bisa lebih dari 2 TB sedangkan bios Legacy hanya 2 TB adalah kapasitas maksimal , artinya tidak bisa lebih dari 2 TB.
+2. **UEFI Firmware Initialization**: Setelah POST selesai, firmware UEFI diinisialisasi. Ini meliputi identifikasi dan inisialisasi perangkat keras seperti CPU, RAM, dan perangkat penyimpanan.
 
-**4. Keamanan**
-UEFI dapat mencegah pemuatan aplikasi yang tak sah atau dicurigai. Selain itu juga dapat menghambat adanya kerja dua boot karena UEFI menganggap sistem operasi adalah aplikasi.
-Namun, pada Legacy, tak ada keamanan yang disediakan saat booting berlangsung, sehingga ada kemungkinan aplikasi tak sah dimuat serta terjadi dual-boot.
+3. **UEFI Boot Manager**: Setelah firmware diinisialisasi, UEFI Boot Manager dimuat. Boot Manager adalah program yang memilih perangkat booting yang sesuai. Ini dapat memuat beberapa file konfigurasi, seperti NVRAM (Non-Volatile Random Access Memory) atau file konfigurasi di partisi EFI System.
+
+4. **Boot Option Menu**: Jika ada lebih dari satu perangkat booting yang tersedia, Boot Manager menampilkan menu opsi booting, di mana pengguna dapat memilih perangkat booting yang diinginkan.
+
+5. **Loading Boot Loader**: Setelah perangkat booting dipilih, Boot Manager memuat boot loader yang sesuai. Boot loader memuat sistem operasi ke dalam memori dan memulai eksekusi.
+
+6. **Loading Kernel**: Boot loader memuat kernel sistem operasi ke dalam memori dan memulai eksekusi. Kernel mengelola sumber daya perangkat keras dan menjalankan aplikasi.
+
+7. **Init Process**: Setelah kernel dimuat, proses init (biasanya systemd pada distribusi Linux modern) dimulai. Ini adalah proses pertama yang dijalankan setelah kernel dan bertanggung jawab untuk memulai proses lain serta mengelola sistem.
+
+8. **User Space**: Setelah proses init selesai, sistem operasi memasuki user space, di mana pengguna dapat mulai menjalankan aplikasi.
+
+Proses booting pada UEFI memiliki beberapa keuntungan, termasuk kemampuan untuk boot dari partisi GPT yang lebih besar, dukungan untuk booting jaringan (PXE boot), dan fitur keamanan seperti Secure Boot.
+
+Berikut adalah langkah-langkah umum dalam proses booting Legacy BIOS:
+
+1. **Power On Self Test (POST)**: Proses booting dimulai dengan POST, di mana firmware BIOS melakukan pemeriksaan awal terhadap perangkat keras untuk memastikan semuanya berfungsi dengan baik.
+
+2. **BIOS Initialization**: Setelah POST selesai, BIOS diinisialisasi. Ini meliputi identifikasi dan inisialisasi perangkat keras seperti CPU, RAM, dan perangkat penyimpanan.
+
+3. **Master Boot Record (MBR) Loading**: Setelah BIOS diinisialisasi, BIOS mencari MBR di perangkat booting yang ditentukan. MBR adalah bagian pertama dari disk yang berisi kode boot loader.
+
+4. **Boot Loader Loading**: Setelah MBR ditemukan, BIOS memuat boot loader yang sesuai. Boot loader memuat sistem operasi ke dalam memori dan memulai eksekusi.
+
+5. **Loading Kernel**: Boot loader memuat kernel sistem operasi ke dalam memori dan memulai eksekusi. Kernel mengelola sumber daya perangkat keras dan menjalankan aplikasi.
+
+6. **Init Process**: Setelah kernel dimuat, proses init (biasanya systemd pada distribusi Linux modern) dimulai. Ini adalah proses pertama yang dijalankan setelah kernel dan bertanggung jawab untuk memulai proses lain serta mengelola sistem.
+
+7. **User Space**: Setelah proses init selesai, sistem operasi memasuki user space, di mana pengguna dapat mulai menjalankan aplikasi.
+
+Proses booting pada Legacy BIOS memiliki beberapa kelemahan, termasuk keterbatasan dalam ukuran partisi booting (hingga 2TB) dan jumlah partisi primer (hingga 4), serta tidak adanya fitur keamanan seperti Secure Boot.
 
 ## Referensi
 

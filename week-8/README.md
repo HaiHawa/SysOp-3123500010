@@ -145,7 +145,7 @@ AGE adalah sebuah batasan, menetapkan nilai baru akan menimbulkan kesalahan, dan
 
 Output :
 
-![App Screenshot](assets/img/)
+![App Screenshot](assets/img/variables/Screenshot%202024-04-25%20151210.png)
 
 **Variabel Bash tidak disetel**
 
@@ -310,7 +310,7 @@ Contoh array asosiatif Dalam hal ini, nilai Array disimpan dengan kunci. ini dib
 
 Mari kita tetapkan nilainya.
 
-![App Screenshot](assets/img/arrays/4%20-%20Copy.png)
+![App Screenshot](assets/img/arrays/Screenshot%202024-04-25%20151729.png)
 
 Tetapkan nilai tanpa mendeklarasikan array
 
@@ -327,7 +327,6 @@ Array dapat berisi angka Contoh ini berisi array angka dan loop for untuk diceta
 
 Syntax :
 
-![App Screenshot](assets/img/arrays/6.png)
 ![App Screenshot](assets/img/arrays/7.png)
 
 Output :

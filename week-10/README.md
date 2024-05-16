@@ -19,6 +19,7 @@
 ### Table content
 
 - [Overview](#overview)
+- [Threads](#threads)
 - [Multicore Programming](#multicore-programming)
 - [Multithreading Models](#multithreading-models)
   - [Many-to-One](#many-to-one)
@@ -29,6 +30,7 @@
 - [Threading Issues](#threading-issues)
 - [Signal handling](#signal-handling)
 - [Operating System Examples](#operating-system-examples)
+- [Q&A](#)
 - [Referensi](#referensi)
 
 # Threads
@@ -59,7 +61,7 @@ Kernel biasanya multithreaded: Kernel sistem operasi biasanya melakukannya.
 
 ### Multithreaded Server Architecture
 
-![App Screenshot](assets/img/1.png)
+![App Screenshot](assets/img/thread_overview.png)
 
 ### Keuntungan dari multithreading:
 
@@ -99,15 +101,16 @@ Para programmer menghadapi beberapa masalah karena sistem multicore atau multipr
 
 - Concurrent execution on single-core system
 
-![App Screenshot](assets/img/3.png)
+![App Screenshot](assets/img/Concurrency_singlecore.png)
 
 - Parallelism on a multi-core system
 
-![App Screenshot](assets/img/4.png)
+![App Screenshot](assets/img/Parallelism_multicore.png)
 
 ### Single and Multithreaded Processes
 
-![App Screenshot](assets/img/4.png)
+![App Screenshot](assets/img/single_multi_core.png)
+
 ### Amdahl’s Law
 
 Rumus Hukum Amdahl adalah rumus yang dapat digunakan untuk menentukan peningkatan kecepatan maksimum yang dapat dicapai sistem hanya dengan meningkatkan komponen tertentu. Misalnya, peningkatan kinerja keseluruhan sistem dengan prosesor yang lebih cepat akan dibatasi oleh kecepatan RAM, sehingga peningkatan kinerja keseluruhan sistem akan dibatasi oleh komponen sistem yang tidak ditingkatkan.
@@ -128,7 +131,7 @@ Terdapat dua jenis utama dari pengelolaan thread:
 
 ### Many-to-One
 
-![App Screenshot](assets/img/5.png)
+![App Screenshot](assets/img/many-to-one.png)
 
 Terdapat model dimana banyak thread tingkat pengguna (thread user-level) ke satu thread kernel. Model ini kurang digunakan karena beberapa keterbatasan, seperti:
 
@@ -140,19 +143,19 @@ Keterbatasan pada penggunaan sumber daya: Saat mengelola banyak thread tingkat p
 
 ### One-to-One
 
-![App Screenshot](assets/img/6.png)
+![App Screenshot](assets/img/one-to-one.png)
 
 Dalam model ini, setiap thread tingkat pengguna dipetakan ke thread kernel, dan setiap kali thread tingkat pengguna dibuat, sebuah thread kernel juga dibuat. Ini membuat model ini lebih kompetitif daripada model banyak-ke-satu. Namun, biaya yang terkait dengan pembuatan dan pengelolaan thread kernel kadang-kadang membatasi jumlah thread per proses.
 
 ### Many-to-Many
 
-![App Screenshot](assets/img/7.png)
+![App Screenshot](assets/img/many-to-many.png)
 
 Banyak thread tingkat pengguna dapat dipetakan ke banyak thread kernel berkat model ini, yang memungkinkan sistem operasi membuat jumlah thread kernel yang cukup sesuai kebutuhan. Solaris sebelum versi 9 dan Windows dengan paket ThreadFiber adalah beberapa sistem yang menggunakan model ini.
 
 ### Two-level Model
 
-![App Screenshot](assets/img/8.png)
+![App Screenshot](assets/img/Two-level%20Model.png)
 
 Model ini mirip dengan many to many (M:M), model ini memungkinkan thread tingkat pengguna diikat (bound) ke thread kernel tertentu. Sistem seperti IRIX, HP-UX, Tru64 UNIX, dan Solaris 8, serta versi sebelumnya, adalah contohnya.
 
@@ -334,7 +337,7 @@ Struktur data utama dari sebuah thread meliputi:
 - TEB (blok lingkungan thread) - id thread, mode-pengguna
   stack, penyimpanan lokal-utas, di ruang pengguna.
 
-![App Screenshot](assets/img/9.png)
+![App Screenshot](assets/img/window_data_structure%20.png)
 
 ### Linux Threads
 
@@ -353,6 +356,52 @@ Saat memanggil clone(), Anda dapat mengatur bendera yang mengontrol perilaku tug
 
 struct task_struct adalah struktur data yang mewakili tugas (proses atau thread) di Linux.
 Ini berisi informasi tentang tugas, termasuk ID tugas, tumpukan, status, dan banyak lagi.
+
+## Q&A
+
+1. Berikan tiga contoh pemrograman di mana multithreading memberikan kinerja yang lebih baik daripada solusi single-threaded.
+
+   Server Web yang melayani setiap permintaan di threads terpisah. Misalnya, server web menerima permintaan klien untuk menampilkan halaman web, gambar, suara dan sebagainya. Server web mungkin memiliki beberapa klien yang mengakses secara bersamaan. Salah satu solusinya adalah menjalankan server sebagai satu proses yang menerima permintaan. Saat permintaan dibuat, server dapat membuat thread yang baru guna melayani permintaan tambahan. Aplikasi paralel seperti perkalian matriks di mana bagian-bagian berbeda dari matriks dapat dikerjakan secara paralel. Program GUI interaktif seperti debugger di mana threads digunakan untuk memantau input user, threads lain mewakili aplikasi yang sedang berjalan, dan threads ketiga memantau kinerja.
+
+2. Apa dua perbedaan antara user-level threads dan kernel-level threads ?
+
+   Dalam keadaan apa salah satu jenis lebih baik dari yang lain? Pada user-level threads didukung kernel serta diimplemetasikan dengan threads library , sedangkan kernel-level threads dikelola langsung oleh sistem operasi. Pada sistem yang menggunakan pemetaan M : 1 atau M : N, user threads menyediakan fasilitas untuk pembuatan threads, penjadwalan threads, dan manajemen threads tanpa dukungan dari kernel melalui threads library dan kernel (kernel space) menjadwalkan kernel threads. Kernel threads tidak perlu dikaitkan dengan suatu proses di mana setiap user threads adalah bagian dari suatu proses. Kernel threads umumnya lebih mahal untuk dirawat daripada user threads karena harus direpresentasikan dengan struktur data kernel. Pengaturan pada kernel-level threads dilakukan oleh sistem operasi, sehingga pembuatan dan pengaturan kernel-level threads lebih lambat dibandingkan user-level threads.
+
+3. Jelaskan tindakan yang dilakukan oleh kernel untuk beralih konteks antara kernel level threads.
+
+   Pada saat alih konteks terjadi, kernel akan menyimpan konteks dari proses lama kedalam PCB-nya dan mengisi konteks yang telah disimpan dari proses baru yang telah terjadual untuk berjalan. Pergantian waktu konteks adalah murni overhead, karena sistem ini melakukan pekerjaan yang tidak perlu. Kecepatannya bervariasi dari mesin ke mesin, bergantung pada kecepatan memori, jumlah register yang harus di copy, dan keberadaan instruksi khusus (seperti instruksi tunggal untuk mengisi atau menyimpan seluruh register). Pergantian konteks antara kernel threads biasanya membutuhkan penyimpanan nilai register CPU dari threads yang dialihkan dan mengembalikan register CPU dari threads baru yang dijadwalkan.
+
+4. Sumber daya apa yang digunakan saat threads dibuat?
+
+   Bagaimana mereka berbeda dari yang digunakan ketika suatu proses dibuat? Karena threads lebih kecil dari suatu proses, pembuatan threads biasanya menggunakan sumber daya yang lebih sedikit daripada pembuatan proses. Membuat suatu proses membutuhkan alokasi blok kontrol proses (PCB), struktur data yang agak besar. PCB mencakup peta memori, daftar file yang terbuka, dan variabel lingkungan. Mengalokasikan dan mengelola peta memori biasanya merupakan aktivitas yang paling memakan waktu. Menciptakan user atau kernel threads melibatkan pengalokasian struktur data kecil untuk menampung set register, stack, dan prioritas.
+
+5. Asumsikan bahwa sistem operasi memetakan thread tingkat pengguna ke kernel menggunakan model many-to-many dan pemetaan dilakukan melalui LWP. Selain itu, sistem ini memungkinkan pengembang untuk membuat threads realtime untuk digunakan dalam sistem real-time. Apakah perlu untuk mengikat threads real-time ke LWP? Jelaskan.
+
+   Iya. Pengaturan waktu sangat penting untuk aplikasi real-time. Jika threads ditandai sebagai real-time tetapi tidak terikat pada LWP, threads mungkin harus menunggu untuk dilampirkan ke LWP sebelum dijalankan. Pertimbangkan jika threads realtime sedang berjalan (dilampirkan ke LWP) dan kemudian dilanjutkan ke blok (yaitu harus melakukan I / O, telah didahului oleh threads real-time yang memiliki prioritas tinggi, dll.) Saat threads real-time diblokir, LWP yang dilampirkan telah ditugaskan ke threads lain. Ketika threads real-time telah dijadwalkan untuk berjalan kembali, threads tersebut harus menunggu terlebih dahulu untuk dilampirkan ke LWP. Dengan mengikat LWP ke threads real-time, Anda memastikan threads akan dapat berjalan dengan penundaan minimal setelah dijadwalkan
+
+Pertanyaan beserta jawaban :
+
+1. Apa yang dimaksud dengan Thread Priority?
+
+Setiap thread memiliki prioritas. Namun, prioritas yang lebih tinggi juga diutamakan dalam eksekusi. Namun, itu juga tergantung pada implementasi Thread Scheduler yang bergantung pada OS. Dimungkinkan untuk mengubah prioritas utas, tetapi tidak memberikan jaminan bahwa utas prioritas yang lebih tinggi akan dieksekusi terlebih dahulu
+
+2. Bagaimana beberapa thread dapat dikontrol secara bersamaan?
+
+Beberapa thread dapat dikontrol secara bersamaan jika dibuat dalam objek ThreadGroup.
+
+3. Apa perbedaan antara thread tingkat pengguna dan thread tingkat kernel?
+
+User-level threads (ULTs) dan kernel-level threads (KLTs) berbeda dalam manajemen dan alokasi sumber daya. ULT dikelola oleh program ruang pengguna, bukan OS, membuatnya lebih cepat untuk dibuat dan dikelola karena pengalihan konteks yang lebih sedikit. Namun, jika satu blok ULT, semua utas dalam blok proses, karena OS hanya melihat prosesnya. Di sisi lain, KLT dikelola langsung oleh OS, memungkinkan multitasking yang lebih baik karena utas yang diblokir tidak memengaruhi orang lain dalam proses yang sama. Namun, mereka membutuhkan lebih banyak overhead karena peningkatan pengalihan konteks dan keterlibatan OS langsung.
+
+4. Apa peran semaphore dalam multithreading?
+
+Semaphore dalam multithreading adalah alat sinkronisasi yang digunakan untuk mengontrol akses ke sumber daya bersama. Ini pada dasarnya adalah variabel yang mempertahankan jumlah sumber daya yang tersedia, atau slot. Ketika thread ingin menggunakan sumber daya, ia memeriksa semaphore. Jika hitungan lebih besar dari nol, thread mengurangi hitungan dan melanjutkan. Jika hitungannya nol, utas harus menunggu hingga slot tersedia. Mekanisme ini mencegah kondisi balapan dengan memastikan bahwa hanya satu utas yang dapat memodifikasi sumber daya bersama pada waktu tertentu. Semaphore juga membantu mengelola kebuntuan, di mana dua utas saling menunggu untuk melepaskan sumber daya.
+
+5. Bagaimana Anda bisa memastikan bahwa thread dijalankan dalam urutan tertentu?
+
+Urutan eksekusi thread dapat dikontrol menggunakan teknik sinkronisasi. Salah satu metode umum adalah menggunakan join(), yang membuat thread menunggu sampai selesainya yang lain. Misalnya, jika kita ingin Thread B dieksekusi setelah Thread A, kita memanggil B.join() dalam metode run A.
+Pendekatan lain melibatkan semaphore. Semaphore mempertahankan seperangkat izin; Sebuah thread dapat memperoleh izin (jika tersedia) atau melepaskannya kembali ke semaphore. Jika izin tidak tersedia, utas akan diblokir sampai izin. Dengan mengontrol jumlah izin awal dan distribusinya di antara utas, kita dapat menentukan perintah eksekusi.
+Terakhir, kita bisa menggunakan kunci. Kunci hanya mengizinkan satu utas pada satu waktu untuk mengakses sumber daya bersama. Dengan menempatkan kunci secara strategis, kita dapat memastikan bahwa bagian kode tertentu dijalankan oleh utas tertentu dalam urutan tertentu.
 
 ## Referensi
 

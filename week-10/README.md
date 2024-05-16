@@ -61,7 +61,7 @@ Kernel biasanya multithreaded: Kernel sistem operasi biasanya melakukannya.
 
 ### Multithreaded Server Architecture
 
-![App Screenshot](assets/img/thread_overview.png)
+![App Screenshot](assets/img/1.png)
 
 ### Keuntungan dari multithreading:
 
@@ -101,15 +101,15 @@ Para programmer menghadapi beberapa masalah karena sistem multicore atau multipr
 
 - Concurrent execution on single-core system
 
-![App Screenshot](assets/img/Concurrency_singlecore.png)
+![App Screenshot](assets/img/3.png)
 
 - Parallelism on a multi-core system
 
-![App Screenshot](assets/img/Parallelism_multicore.png)
+![App Screenshot](assets/img/4.png)
 
 ### Single and Multithreaded Processes
 
-![App Screenshot](assets/img/single_multi_core.png)
+![App Screenshot](assets/img/5.png)
 
 ### Amdahl’s Law
 
@@ -131,7 +131,7 @@ Terdapat dua jenis utama dari pengelolaan thread:
 
 ### Many-to-One
 
-![App Screenshot](assets/img/many-to-one.png)
+![App Screenshot](assets/img/6.png)
 
 Terdapat model dimana banyak thread tingkat pengguna (thread user-level) ke satu thread kernel. Model ini kurang digunakan karena beberapa keterbatasan, seperti:
 
@@ -143,19 +143,19 @@ Keterbatasan pada penggunaan sumber daya: Saat mengelola banyak thread tingkat p
 
 ### One-to-One
 
-![App Screenshot](assets/img/one-to-one.png)
+![App Screenshot](assets/img/7.png)
 
 Dalam model ini, setiap thread tingkat pengguna dipetakan ke thread kernel, dan setiap kali thread tingkat pengguna dibuat, sebuah thread kernel juga dibuat. Ini membuat model ini lebih kompetitif daripada model banyak-ke-satu. Namun, biaya yang terkait dengan pembuatan dan pengelolaan thread kernel kadang-kadang membatasi jumlah thread per proses.
 
 ### Many-to-Many
 
-![App Screenshot](assets/img/many-to-many.png)
+![App Screenshot](assets/img/8.png)
 
 Banyak thread tingkat pengguna dapat dipetakan ke banyak thread kernel berkat model ini, yang memungkinkan sistem operasi membuat jumlah thread kernel yang cukup sesuai kebutuhan. Solaris sebelum versi 9 dan Windows dengan paket ThreadFiber adalah beberapa sistem yang menggunakan model ini.
 
 ### Two-level Model
 
-![App Screenshot](assets/img/Two-level%20Model.png)
+![App Screenshot](assets/img/9.png)
 
 Model ini mirip dengan many to many (M:M), model ini memungkinkan thread tingkat pengguna diikat (bound) ke thread kernel tertentu. Sistem seperti IRIX, HP-UX, Tru64 UNIX, dan Solaris 8, serta versi sebelumnya, adalah contohnya.
 
@@ -337,7 +337,7 @@ Struktur data utama dari sebuah thread meliputi:
 - TEB (blok lingkungan thread) - id thread, mode-pengguna
   stack, penyimpanan lokal-utas, di ruang pengguna.
 
-![App Screenshot](assets/img/window_data_structure%20.png)
+![App Screenshot](assets/img/10.png)
 
 ### Linux Threads
 
